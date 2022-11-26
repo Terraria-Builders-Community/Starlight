@@ -1,5 +1,8 @@
 ﻿namespace Starlight.Entities.Bans.Entity
 {
+    /// <summary>
+    ///     Represents an entity ban type.
+    /// </summary>
     [Flags]
     public enum EntityBanFlags : byte
     {
