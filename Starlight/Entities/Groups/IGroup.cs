@@ -9,5 +9,9 @@ namespace Starlight.Entities.Groups
         public IList<Permission> Permissions { get; set; }
 
         public string Parent { get; set; }
+
+        public string Prefix { get; set; }
+
+        public string Suffix { get; set; }
     }
 }
