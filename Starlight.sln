@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Starlight", "Starlight\Starlight.csproj", "{83A4A18A-3217-4767-87FC-F2624142CD60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Starlight", "Starlight\Starlight.csproj", "{83A4A18A-3217-4767-87FC-F2624142CD60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Starlight.Server", "src\Starlight.Server\Starlight.Server.csproj", "{79A8AB27-1232-4681-A568-A3F24B023CF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{83A4A18A-3217-4767-87FC-F2624142CD60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83A4A18A-3217-4767-87FC-F2624142CD60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83A4A18A-3217-4767-87FC-F2624142CD60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79A8AB27-1232-4681-A568-A3F24B023CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79A8AB27-1232-4681-A568-A3F24B023CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79A8AB27-1232-4681-A568-A3F24B023CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79A8AB27-1232-4681-A568-A3F24B023CF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
