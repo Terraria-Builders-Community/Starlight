@@ -1,8 +1,7 @@
 ﻿using MongoDB.Driver;
-using Starlight.Database;
 using System.Linq.Expressions;
 
-namespace Starlight.Entities
+namespace Starlight
 {
     internal static class ModelHelper<T>
         where T : IModel, new()

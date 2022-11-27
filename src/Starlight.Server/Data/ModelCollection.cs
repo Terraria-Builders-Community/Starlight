@@ -1,9 +1,8 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using Starlight.Entities;
 using System.Linq.Expressions;
 
-namespace Starlight.Database
+namespace Starlight
 {
     public class ModelCollection<T>
         where T : IModel

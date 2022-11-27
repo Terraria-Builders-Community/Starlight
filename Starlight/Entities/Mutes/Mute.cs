@@ -1,8 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using Starlight.Entities.Bans.Entity;
 using Starlight.Structures;
-using System.Net;
 
 namespace Starlight.Entities.Mutes
 {

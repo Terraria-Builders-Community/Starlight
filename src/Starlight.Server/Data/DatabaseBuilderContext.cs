@@ -1,4 +1,4 @@
-﻿namespace Starlight.Database
+﻿namespace Starlight
 {
     /// <summary>
     ///     Represents the configuration for a mongo database.

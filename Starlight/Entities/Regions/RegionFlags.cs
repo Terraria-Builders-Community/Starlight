@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Starlight.Entities.Regions
+﻿namespace Starlight.Entities.Regions
 {
     /// <summary>
     ///     Represents the flags that are potentially present on a region

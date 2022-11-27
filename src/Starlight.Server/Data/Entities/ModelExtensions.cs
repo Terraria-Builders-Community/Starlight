@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using System.Linq.Expressions;
 
-namespace Starlight.Entities
+namespace Starlight
 {
     public static class ModelExtensions
     {

@@ -49,7 +49,7 @@ namespace Starlight.Entities.Bans.Entity
         /// </summary>
         public UUId? UUID
         {
-            get 
+            get
                 => _uuid;
             set
             {

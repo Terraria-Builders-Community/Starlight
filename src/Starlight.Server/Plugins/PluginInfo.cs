@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Starlight.Server.Plugins
+﻿namespace Starlight
 {
     /// <summary>
     ///     Represents information about the plugin.
@@ -12,24 +6,29 @@ namespace Starlight.Server.Plugins
     public class PluginInfo
     {
         /// <summary>
+        ///     The order in which the <see cref="Plugin.LoadAsync"/> call is made across all plugins.
+        /// </summary>
+        public int Order { get; set; } = 0;
+
+        /// <summary>
         ///     The plugin version.
         /// </summary>
-        public Version Version { get; } = new(1, 0, 0, 0);
+        public Version Version { get; set; } = new(1, 0, 0, 0);
 
         /// <summary>
         ///     The plugin name.
         /// </summary>
-        public string Name { get; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         ///     The plugin description.
         /// </summary>
-        public string Description { get; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         /// <summary>
         ///     The plugin author.
         /// </summary>
-        public string Author { get; } = string.Empty; 
+        public string Author { get; set; } = string.Empty;
 
         public PluginInfo(Action<PluginInfo> action)
         {

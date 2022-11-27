@@ -1,8 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using Starlight.Entities;
 
-namespace Starlight.Database
+namespace Starlight
 {
     public class DatabaseProvider
     {
@@ -29,14 +28,10 @@ namespace Starlight.Database
         }
 
         /// <summary>
-        ///     Creates a new <see cref="DatabaseManager"/> with provided configuration action.
+        ///     Creates a new <see cref="DatabaseProvider"/> with provided configuration action.
         /// </summary>
-        /// <param name="action"></param>
-        public DatabaseProvider(Action<DatabaseConfiguration> action)
+        public DatabaseProvider(DatabaseConfiguration config)
         {
-            var config = new DatabaseConfiguration();
-            action(config);
-
             var url = new MongoUrl(config.ConnectionString);
 
             _client = new MongoClient(url);
@@ -45,7 +40,7 @@ namespace Starlight.Database
         }
 
         /// <summary>
-        ///     Creates a new <see cref="DatabaseManager"/> based on injection parameters.
+        ///     Creates a new <see cref="DatabaseProvider"/> based on injection parameters.
         /// </summary>
         /// <param name="client"></param>
         /// <param name="config"></param>

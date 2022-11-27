@@ -1,4 +1,4 @@
-﻿namespace Starlight.Entities
+﻿namespace Starlight
 {
     public enum ModelState
     {

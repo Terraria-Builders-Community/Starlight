@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using System.Linq.Expressions;
 
-namespace Starlight.Entities
+namespace Starlight
 {
     public interface IModel
     {
