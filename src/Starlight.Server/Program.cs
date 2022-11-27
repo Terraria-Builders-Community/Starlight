@@ -41,7 +41,7 @@ host.ConfigureCommands((context, commands) =>
     if (!Enum.TryParse<CSF.LogLevel>(context.Configuration.GetSection("Logging").GetSection("LogLevel")["Commands"], out var logLevel))
         logLevel = CSF.LogLevel.Debug;
     commands.DefaultLogLevel = logLevel;
-    commands.DoAsynchronousExecution = false;
+    commands.DoAsynchronousExecution = true;
     commands.Prefixes = new PrefixProvider()
         .Include(new CharPrefix('/'))
         .Include(new CharPrefix('.'));

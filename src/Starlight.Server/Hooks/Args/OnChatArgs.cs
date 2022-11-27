@@ -2,5 +2,6 @@
 {
     public record class OnChatArgs
     {
+        public string RawMessage { get; set; }
     }
 }

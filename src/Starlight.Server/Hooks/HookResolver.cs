@@ -1,4 +1,8 @@
-﻿namespace Starlight
+﻿using CSF;
+using IL.Terraria.GameContent.Bestiary;
+using Starlight.Hooks.Args;
+
+namespace Starlight
 {
     public abstract class HookResolver : IHookResolver
     {
@@ -14,12 +18,22 @@
             return Continue();
         }
 
-        public virtual Task<HandleResult> OnReloadAsync()
+        public virtual Task<HandleResult> OnPreCommandAsync(OnPreCommandArgs args)
         {
             return Continue();
         }
 
-        public virtual Task<HandleResult> OnGetDataAsync()
+        public virtual Task<HandleResult> OnPostCommandAsync(OnPostCommandArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnReloadAsync(OnReloadArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnGetDataAsync(OnGetDataArgs args)
         {
             return Continue();
         }

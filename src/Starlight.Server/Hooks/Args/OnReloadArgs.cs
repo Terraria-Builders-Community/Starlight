@@ -1,6 +1,6 @@
 ﻿namespace Starlight
 {
-    internal class OnReloadArgs
+    public record class OnReloadArgs
     {
     }
 }

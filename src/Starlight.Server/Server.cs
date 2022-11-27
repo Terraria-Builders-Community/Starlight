@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using CSF;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Starlight
@@ -7,8 +8,10 @@ namespace Starlight
     {
         private readonly ILogger<Server> _logger;
         private readonly IReadOnlyList<Plugin> _plugins;
+        private readonly IServiceProvider _provider;
+        private readonly CommandFramework _framework;
 
-        public Server(ILogger<Server> logger, IEnumerable<Plugin> plugins)
+        public Server(ILogger<Server> logger, IEnumerable<Plugin> plugins, IServiceProvider provider, CommandFramework framework)
         {
             _plugins = plugins
                 .OrderBy(x => x.PluginInfo.Order)
@@ -16,6 +19,8 @@ namespace Starlight
                 .ToList();
 
             _logger = logger;
+            _provider = provider;
+            _framework = framework;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -28,6 +33,9 @@ namespace Starlight
             {
                 try
                 {
+                    await _framework.BuildModulesAsync(plugin.GetType().Assembly);
+
+                    plugin.SetServices(_provider);
                     await plugin.LoadAsync();
                     _logger.LogInformation("Succesfully loaded plugin {} ({}).",
                         plugin.PluginInfo.Name, plugin.PluginInfo.Version);

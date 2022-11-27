@@ -1,6 +1,6 @@
 ﻿namespace Starlight
 {
-    internal class OnGetDataArgs
+    public record class OnGetDataArgs
     {
     }
 }

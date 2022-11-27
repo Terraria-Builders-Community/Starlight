@@ -1,8 +1,4 @@
-﻿
-using Microsoft.Extensions.DependencyInjection;
-using Terraria;
-
-namespace Starlight.Tests
+﻿namespace Starlight.Tests
 {
     public class MyPlugin : Plugin
     {
@@ -14,17 +10,7 @@ namespace Starlight.Tests
 
         public override async Task LoadAsync()
         {
-            var config = await IModel.GetAsync<MyPluginConfiguration>(x => true);
-
-            config ??= await IModel.CreateAsync<MyPluginConfiguration>(x =>
-            {
-                x.SomeKindOfValue = "This is some config value";
-            });
-        }
-
-        public override void ConfigureServices(IServiceCollection collection)
-        {
-            collection.AddSingleton<MyPluginConfiguration>();
+            await Task.CompletedTask;
         }
     }
 }
