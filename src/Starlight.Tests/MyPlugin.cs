@@ -1,4 +1,7 @@
 ﻿
+using Microsoft.Extensions.DependencyInjection;
+using Terraria;
+
 namespace Starlight.Tests
 {
     public class MyPlugin : Plugin
@@ -17,6 +20,11 @@ namespace Starlight.Tests
             {
                 x.SomeKindOfValue = "This is some config value";
             });
+        }
+
+        public override void ConfigureServices(IServiceCollection collection)
+        {
+            collection.AddSingleton<MyPluginConfiguration>();
         }
     }
 }

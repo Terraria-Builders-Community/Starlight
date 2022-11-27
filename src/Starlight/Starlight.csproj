@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Starlight.Server\Starlight.Server.csproj" />
+    <ProjectReference Include="..\Starlight.Server\Starlight.Server.csproj" />
   </ItemGroup>
 
 </Project>

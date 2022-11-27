@@ -9,7 +9,6 @@ var context = new ServerBuilderContext();
 
 AppDomain.CurrentDomain.UnhandledException += (_, e)
     => Console.WriteLine(e);
-
 AppDomain.CurrentDomain.AssemblyResolve += (_, e)
     => AssemblyResolver.Resolve(e, context);
 
@@ -56,8 +55,7 @@ host.ConfigureServices((context, services) =>
 
 var app = host.Build();
 
-var hookCaller = app.Services.GetRequiredService<HookCaller>();
-
-await hookCaller.AttachAsync();
+await app.Services.GetRequiredService<HookCaller>()
+    .AttachAsync();
 
 await app.RunAsync();

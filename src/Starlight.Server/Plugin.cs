@@ -8,6 +8,16 @@ namespace Starlight
 
         public abstract PluginInfo PluginInfo { get; }
 
+        /// <summary>
+        ///     The serviceprovider used to configure all active plugins. <see langword="null"/> before <see cref="LoadAsync"/> has been called.
+        /// </summary>
+        /// <remarks>
+        ///     
+        /// </remarks>
+        public IServiceProvider? Services { get; private set; }
+        internal void SetServices(IServiceProvider provider)
+            => Services = provider;
+
         public Plugin()
         {
 

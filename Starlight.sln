@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Starlight", "Starlight\Starlight.csproj", "{83A4A18A-3217-4767-87FC-F2624142CD60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Starlight", "src\Starlight\Starlight.csproj", "{83A4A18A-3217-4767-87FC-F2624142CD60}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Starlight.Server", "src\Starlight.Server\Starlight.Server.csproj", "{79A8AB27-1232-4681-A568-A3F24B023CF2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Starlight.Tests", "src\Starlight.Tests\Starlight.Tests.csproj", "{D5B7E96C-2A39-4517-A56F-CA956BD1B09F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{937257C1-E426-46F6-A9DC-F87407C74C57}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "Plugin", "{87A637BE-9511-4297-9A17-B3B96650D726}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +36,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{83A4A18A-3217-4767-87FC-F2624142CD60} = {87A637BE-9511-4297-9A17-B3B96650D726}
 		{79A8AB27-1232-4681-A568-A3F24B023CF2} = {937257C1-E426-46F6-A9DC-F87407C74C57}
 		{D5B7E96C-2A39-4517-A56F-CA956BD1B09F} = {937257C1-E426-46F6-A9DC-F87407C74C57}
 	EndGlobalSection
