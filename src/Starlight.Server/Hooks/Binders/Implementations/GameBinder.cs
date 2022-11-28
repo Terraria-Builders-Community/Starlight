@@ -72,7 +72,7 @@ namespace Starlight
         {
             var args = new OnStatueSpawnArgs();
 
-            var result = _caller.OnStatueSpawnAsync(args);
+            var result = _caller.OnStatueSpawnAsync(args).GetAwaiter().GetResult();
 
             if (result.Handled)
                 e.Result = HookResult.Cancel;
@@ -82,7 +82,7 @@ namespace Starlight
         {
             var args = new OnStatueSpawnArgs();
 
-            var result = _caller.OnStatueSpawnAsync(args);
+            var result = _caller.OnStatueSpawnAsync(args).GetAwaiter().GetResult();
 
             if (result.Handled)
                 e.Result = HookResult.Cancel;

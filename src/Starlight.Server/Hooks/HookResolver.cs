@@ -105,6 +105,15 @@ namespace Starlight
         {
             return Continue();
         }
+        public virtual Task<HandleResult> OnStatueSpawnAsync()
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnPostInitializeAsync()
+        {
+            return Continue();
+        }
 
         protected virtual Task<HandleResult> Continue()
             => Task.FromResult(HandleResult.Continue());
@@ -112,6 +121,5 @@ namespace Starlight
         protected virtual Task<HandleResult> Break()
             => Task.FromResult(HandleResult.Break());
 
-    
     }
 }

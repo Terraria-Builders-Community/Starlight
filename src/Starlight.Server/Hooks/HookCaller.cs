@@ -109,6 +109,31 @@ namespace Starlight
             return;
         }
 
+        public async Task OnPostInitializeAsync()
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnPostInitializeAsync();
+
+                if (handle.Handled)
+                    break;
+            }
+            return;
+        }
+
+
+        public async Task<HandleResult> OnStatueSpawnAsync(OnStatueSpawnArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnStatueSpawnAsync();
+
+                if (handle.Handled)
+                    break;
+            }
+            return HandleResult.Continue();
+        }
+
         //WILL DO (LATER :>)
         public async Task InvokeGameWorldDisconnect()
         {
@@ -278,7 +303,6 @@ namespace Starlight
             }
             return HandleResult.Continue();
         }
-
 
     }
 }
