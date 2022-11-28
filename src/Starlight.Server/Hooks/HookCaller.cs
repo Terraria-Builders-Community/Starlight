@@ -199,5 +199,17 @@ namespace Starlight
             }
             return HandleResult.Continue();
         }
+
+        public async Task<HandleResult> OnHardmodeTileUpdateAsync(OnHardmodeTileUpdateArgs args)
+        {
+            foreach(var resolver in _resolvers)
+            {
+                var handle = await resolver.OnHardmodeTileUpdateAsync(args);
+
+                if (handle.Handled)
+                    return HandleResult.Break();
+            }
+            return HandleResult.Continue();
+        }
     }
 }

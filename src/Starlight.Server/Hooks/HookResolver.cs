@@ -86,6 +86,11 @@ namespace Starlight
             return Continue();
         }
 
+        public virtual Task<HandleResult> OnHardmodeTileUpdateAsync(OnHardmodeTileUpdateArgs args)
+        {
+            return Continue();
+        }
+
         protected virtual Task<HandleResult> Continue()
             => Task.FromResult(HandleResult.Continue());
 

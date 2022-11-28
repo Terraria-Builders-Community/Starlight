@@ -40,7 +40,7 @@ namespace Starlight
         {
             var args = new OnHardmodeTileUpdateArgs();
 
-            var result = _caller.OnHardmodeTileUpdateAsync(args);
+            var result = _caller.OnHardmodeTileUpdateAsync(args).GetAwaiter().GetResult();
 
             if (result.Handled)
                 e.Result = HookResult.Cancel;
