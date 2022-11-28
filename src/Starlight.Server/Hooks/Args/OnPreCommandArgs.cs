@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Starlight
 {
-    public record class OnPreCommandArgs
+    public sealed class OnPreCommandArgs
     {
         public ChatCommandContext Context { get; }
 

@@ -36,6 +36,56 @@ namespace Starlight
             return Continue();
         }
 
+        public virtual Task<HandleResult> OnQuickStackAsync(OnQuickStackArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnSetDefaultsAsync(OnSetDefaultArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnNetDefaultsAsync(OnSetDefaultArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnReceiveDataAsync(OnReceiveDataArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnSendBytesAsync(OnSendBytesArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnSendNetDataAsync(OnSendNetDataArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnSendDataAsync(OnSendDataArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnGreetPlayerAsync(OnGreetPlayerArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnNameCollisionAsync(OnNameCollisionArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnChatBroadcastAsync(OnBroadcastArgs args)
+        {
+            return Continue();
+        }
+
         protected virtual Task<HandleResult> Continue()
             => Task.FromResult(HandleResult.Continue());
 

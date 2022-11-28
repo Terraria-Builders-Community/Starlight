@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Starlight
 {
-    public record class OnPostCommandArgs
+    public sealed class OnPostCommandArgs
     {
         public IResult Result { get; }
 

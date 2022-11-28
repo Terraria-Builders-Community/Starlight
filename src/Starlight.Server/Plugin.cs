@@ -24,7 +24,10 @@ namespace Starlight
 
         }
 
-        public abstract Task LoadAsync();
+        public virtual Task LoadAsync()
+        {
+            return Task.CompletedTask;
+        }
 
         public virtual Task UnloadAsync()
         {
