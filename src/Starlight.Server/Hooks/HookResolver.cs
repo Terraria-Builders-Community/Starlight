@@ -96,12 +96,12 @@ namespace Starlight
             return Continue();
         }
 
-        public virtual Task<HandleResult> InvokeGameUpdateAsync()
+        public virtual Task<HandleResult> OnGameUpdateAsync()
         {
             return Continue();
         }
 
-        public virtual Task<HandleResult> InvokePostGameUpdateAsync()
+        public virtual Task<HandleResult> OnPostGameUpdateAsync()
         {
             return Continue();
         }

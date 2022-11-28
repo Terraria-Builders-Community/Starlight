@@ -30,11 +30,11 @@ namespace Starlight
         private static void OnUpdate(On.Terraria.Main.orig_Update orig, Terraria.Main instance, GameTime gameTime)
         {
 
-             _ = _caller.InvokeGameUpdateAsync();
+             _ = _caller.OnGameUpdateAsync();
 
             orig(instance, gameTime);
 
-            _ = _caller.InvokePostGameUpdateAsync();
+            _ = _caller.OnPostGameUpdateAsync();
         }
 
         private static void OnHardmodeTileUpdate(object? sender, Hooks.WorldGen.HardmodeTileUpdateEventArgs e)

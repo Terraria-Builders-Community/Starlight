@@ -1,7 +1,5 @@
 ﻿using CSF;
-using IL.Terraria;
-using MongoDB.Driver;
-using System.Reflection.Metadata.Ecma335;
+using Terraria;
 
 namespace Starlight
 {
@@ -70,22 +68,22 @@ namespace Starlight
 
 
         private bool currentGameMenuState;
-        public async Task InvokeGameUpdateAsync()
+        public async Task OnGameUpdateAsync()
         {
             if(currentGameMenuState != Terraria.Main.gameMenu)
             {
                 currentGameMenuState = Terraria.Main.gameMenu;
 
                 if (Terraria.Main.gameMenu)
-                    await InvokeGameWorldDisconnect();
+                    await OnGameWorldDisconnect();
                 else
-                    await InvokeGameWorldConnect();
+                    await OnGameWorldConnect();
                             
             }
 
             foreach (var resolver in _resolvers)
             {
-                var handle = await resolver.InvokeGameUpdateAsync();
+                var handle = await resolver.OnGameUpdateAsync();
 
                 if (handle.Handled)
                     break;
@@ -96,11 +94,11 @@ namespace Starlight
         }
 
 
-        public async Task InvokePostGameUpdateAsync()
+        public async Task OnPostGameUpdateAsync()
         {
             foreach (var resolver in _resolvers)
             {
-                var handle = await resolver.InvokePostGameUpdateAsync();
+                var handle = await resolver.OnPostGameUpdateAsync();
 
                 if (handle.Handled)
                     break;
@@ -129,7 +127,7 @@ namespace Starlight
                 var handle = await resolver.OnStatueSpawnAsync();
 
                 if (handle.Handled)
-                    break;
+                    return handle;
             }
             return HandleResult.Continue();
         }
@@ -287,7 +285,7 @@ namespace Starlight
                 var handle = await resolver.OnHardmodeTileUpdateAsync(args);
 
                 if (handle.Handled)
-                    return HandleResult.Break();
+                    return handle;
             }
             return HandleResult.Continue();
         }
@@ -299,7 +297,7 @@ namespace Starlight
                 var handle = await resolver.OnHardmodeTilePlaceAsync(args);
 
                 if (handle.Handled)
-                    return HandleResult.Break();
+                    return handle;
             }
             return HandleResult.Continue();
         }
