@@ -121,7 +121,7 @@ namespace Starlight
 
         private static void OnGreetPlayer(On.Terraria.NetMessage.orig_greetPlayer orig, int plr)
         {
-            var args = new OnGreetPlayerArgs();
+            var args = new OnGreetPlayerArgs(plr);
 
             var result = _caller.OnGreetPlayerAsync(args)
                 .GetAwaiter().GetResult();

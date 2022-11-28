@@ -26,6 +26,7 @@ namespace Starlight
                 => await OnCommandResultAsync((ChatCommandContext)x, y);
 
             ItemBinder.Bind(this);
+            NetBinder.Bind(this);
 
             await Task.CompletedTask;
         }
