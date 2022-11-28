@@ -76,9 +76,9 @@ namespace Starlight
                 currentGameMenuState = Terraria.Main.gameMenu;
 
                 if (Terraria.Main.gameMenu)
-                    await InvokeGameWorldDisconnect();
+                    await OnGameWorldDisconnect();
                 else
-                    await InvokeGameWorldConnect();
+                    await OnGameWorldConnect();
                             
             }
 
@@ -134,12 +134,12 @@ namespace Starlight
         }
 
         //WILL DO (LATER :>)
-        public async Task InvokeGameWorldDisconnect()
+        public async Task OnGameWorldConnect()
         {
             return;
         }
 
-        public async Task InvokeGameWorldConnect()
+        public async Task OnGameWorldDisconnect()
         {
             return;
         }
