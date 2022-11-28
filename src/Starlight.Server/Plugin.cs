@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CSF;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Starlight
 {
@@ -31,6 +32,11 @@ namespace Starlight
         }
 
         public virtual void ConfigureServices(IServiceCollection collection)
+        {
+
+        }
+
+        public virtual void ConfigureCommands(CommandConfiguration configuration)
         {
 
         }

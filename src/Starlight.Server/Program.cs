@@ -1,22 +1,18 @@
 ﻿using CSF;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Starlight;
 
-var context = new ServerBuilderContext();
+var configuration = new ServerConfiguration();
 
 AppDomain.CurrentDomain.UnhandledException += (_, e)
     => Console.WriteLine(e);
 AppDomain.CurrentDomain.AssemblyResolve += (_, e)
-    => AssemblyResolver.Resolve(e, context);
+    => AssemblyResolver.Resolve(e, configuration);
 
 var host = Host.CreateDefaultBuilder(args);
 
 host.ConfigureHostConfiguration(configure =>
 {
-    configure.AddEnvironmentVariables("STARLIGHT_");
+    configure.AddEnvironmentVariables("TSERVER_");
     configure.AddJsonFile("appsettings.json");
 });
 
@@ -25,28 +21,27 @@ host.ConfigureLogging(logging =>
     logging.AddSimpleConsole();
 });
 
-AssemblyResolver.ResolvePlugins(context);
+AssemblyResolver.ResolvePlugins(configuration);
 
-host.ConfigurePlugins(serverContext =>
+host.ConfigurePlugins(server =>
 {
-    serverContext.LoadedAssemblies = context.LoadedAssemblies;
+    server.LoadedAssemblies = configuration.LoadedAssemblies;
 });
 
 host.ConfigureDatabase((context, database) =>
 {
-    database.ConnectionString = context.Configuration.GetConnectionString("MongoDB")!;
+    database.ConnectionString = context.Configuration.GetConnectionString("Database")!;
     database.DatabaseName = context.Configuration.GetSection("Database")["Name"]!;
 });
 
 host.ConfigureCommands((context, commands) =>
 {
-    if (!Enum.TryParse<CSF.LogLevel>(context.Configuration.GetSection("Logging").GetSection("LogLevel")["Commands"], out var logLevel))
-        logLevel = CSF.LogLevel.Debug;
-    commands.DefaultLogLevel = logLevel;
+    commands.DefaultLogLevel = (CSF.LogLevel)context.Configuration.GetLogLevel("Commands");
     commands.DoAsynchronousExecution = true;
+
     commands.Prefixes = new PrefixProvider()
-        .Include(new CharPrefix('/'))
-        .Include(new CharPrefix('.'));
+        .Include(context.Configuration.GetSilentPrefix())
+        .Include(context.Configuration.GetDefaultPrefix());
 });
 
 host.ConfigureServices((context, services) =>

@@ -9,7 +9,7 @@ namespace Starlight
 {
     public static class AssemblyResolver
     {
-        public static Assembly? Resolve(ResolveEventArgs args, ServerBuilderContext context)
+        public static Assembly? Resolve(ResolveEventArgs args, ServerConfiguration context)
         {
             string fileName = args.Name.Split(',')[0];
             string path = Path.Combine(context.PluginPath, fileName + ".dll");
@@ -26,7 +26,7 @@ namespace Starlight
             return null;
         }
 
-        public static void ResolvePlugins(ServerBuilderContext context)
+        public static void ResolvePlugins(ServerConfiguration context)
         {
             if (!Directory.Exists(context.PluginPath))
                 Directory.CreateDirectory(context.PluginPath);

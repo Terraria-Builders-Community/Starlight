@@ -2,7 +2,7 @@
 
 namespace Starlight
 {
-    public sealed class ServerBuilderContext
+    public sealed class ServerConfiguration
     {
         /// <summary>
         ///     Represents the default path to load plugins from.
@@ -14,7 +14,7 @@ namespace Starlight
         /// </summary>
         public Dictionary<string, Assembly> LoadedAssemblies { get; set; }
 
-        public ServerBuilderContext()
+        public ServerConfiguration()
         {
             LoadedAssemblies = new();
             PluginPath = "plugins";

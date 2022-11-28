@@ -37,9 +37,9 @@ namespace Starlight
             return builder;
         }
 
-        public static IHostBuilder ConfigurePlugins(this IHostBuilder builder, Action<ServerBuilderContext> action)
+        public static IHostBuilder ConfigurePlugins(this IHostBuilder builder, Action<ServerConfiguration> action)
         {
-            var serverContext = new ServerBuilderContext();
+            var serverContext = new ServerConfiguration();
 
             action(serverContext);
 

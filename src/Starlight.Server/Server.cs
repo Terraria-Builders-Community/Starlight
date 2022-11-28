@@ -21,6 +21,9 @@ namespace Starlight
             _logger = logger;
             _provider = provider;
             _framework = framework;
+
+            _framework.Logger.Resolver = new LogResolver(x => 
+                _logger.Log((Microsoft.Extensions.Logging.LogLevel)x.LogLevel, x.Exception, "{}", x.Value));
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -33,6 +36,8 @@ namespace Starlight
             {
                 try
                 {
+                    plugin.ConfigureCommands(_framework.Configuration);
+
                     await _framework.BuildModulesAsync(plugin.GetType().Assembly);
 
                     plugin.SetServices(_provider);
