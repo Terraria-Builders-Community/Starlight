@@ -1,4 +1,7 @@
 ﻿using CSF;
+using IL.Terraria;
+using MongoDB.Driver;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Starlight
 {
@@ -63,6 +66,58 @@ namespace Starlight
                     return HandleResult.Break();
             }
             return HandleResult.Continue();
+        }
+
+
+        private bool currentGameMenuState;
+        public async Task InvokeGameUpdateAsync()
+        {
+            if(currentGameMenuState != Terraria.Main.gameMenu)
+            {
+                currentGameMenuState = Terraria.Main.gameMenu;
+
+                if (Terraria.Main.gameMenu)
+                    await InvokeGameWorldDisconnect();
+                else
+                    await InvokeGameWorldConnect();
+                            
+            }
+
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.InvokeGameUpdateAsync();
+
+                if (handle.Handled)
+                    break;
+            }
+
+            return;
+
+        }
+
+
+        public async Task InvokePostGameUpdateAsync()
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.InvokePostGameUpdateAsync();
+
+                if (handle.Handled)
+                    break;
+            }
+
+            return;
+        }
+
+        //WILL DO (LATER :>)
+        public async Task InvokeGameWorldDisconnect()
+        {
+            return;
+        }
+
+        public async Task InvokeGameWorldConnect()
+        {
+            return;
         }
 
         public async Task<HandleResult> OnChatAsync(OnChatArgs args)
@@ -211,5 +266,19 @@ namespace Starlight
             }
             return HandleResult.Continue();
         }
+
+        public async Task<HandleResult> OnHardmodeTilePlaceAsync(OnHardmodeTilePlaceArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnHardmodeTilePlaceAsync(args);
+
+                if (handle.Handled)
+                    return HandleResult.Break();
+            }
+            return HandleResult.Continue();
+        }
+
+
     }
 }

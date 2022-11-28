@@ -91,10 +91,27 @@ namespace Starlight
             return Continue();
         }
 
+        public virtual Task<HandleResult> OnHardmodeTilePlaceAsync(OnHardmodeTilePlaceArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> InvokeGameUpdateAsync()
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> InvokePostGameUpdateAsync()
+        {
+            return Continue();
+        }
+
         protected virtual Task<HandleResult> Continue()
             => Task.FromResult(HandleResult.Continue());
 
         protected virtual Task<HandleResult> Break()
             => Task.FromResult(HandleResult.Break());
+
+    
     }
 }
