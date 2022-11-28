@@ -28,6 +28,9 @@ namespace Starlight
 
         public static void ResolvePlugins(ServerBuilderContext context)
         {
+            if (!Directory.Exists(context.PluginPath))
+                Directory.CreateDirectory(context.PluginPath);
+
             var files = new DirectoryInfo(context.PluginPath)
                 .GetFiles("*.dll")
                 .ToList();

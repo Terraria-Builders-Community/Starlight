@@ -1,6 +1,4 @@
 ﻿using CSF;
-using IL.Terraria.GameContent.Bestiary;
-using Starlight.Hooks.Args;
 
 namespace Starlight
 {

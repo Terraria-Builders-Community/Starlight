@@ -25,6 +25,8 @@ host.ConfigureLogging(logging =>
     logging.AddSimpleConsole();
 });
 
+AssemblyResolver.ResolvePlugins(context);
+
 host.ConfigurePlugins(serverContext =>
 {
     serverContext.LoadedAssemblies = context.LoadedAssemblies;
