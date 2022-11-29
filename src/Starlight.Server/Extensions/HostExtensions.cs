@@ -1,6 +1,4 @@
 ﻿using CSF;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System.ComponentModel;
 using System.Reflection;
 
@@ -65,7 +63,7 @@ namespace Starlight
                     pluginType = type;
                 }
 
-                if (type.IsSubclassOf(typeof(HookResolver)) && !type.IsAbstract && type.IsPublic)
+                if (type.IsAssignableTo(typeof(IResolver)) && !type.IsAbstract && type.IsPublic)
                 {
                     eventTypes.Add(type);
                 }
@@ -82,7 +80,7 @@ namespace Starlight
                 obj.ConfigureServices(services);
 
                 foreach (var eventType in eventTypes)
-                    services.AddSingleton(typeof(HookResolver), eventType);
+                    services.AddSingleton(typeof(IResolver), eventType);
             });
 
             return builder;

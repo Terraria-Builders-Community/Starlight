@@ -9,6 +9,8 @@
 	<PublishSingleFile>true</PublishSingleFile>
 	<SelfContained>true</SelfContained>
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+	<NoWarn>MSB3270</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +33,12 @@
 	<None Update="appsettings.json">
 	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	</None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Hooks\Binders\Player\Args\" />
+    <Folder Include="Hooks\Binders\Wiring\Args\" />
+    <Folder Include="Hooks\Binders\World\Args\" />
   </ItemGroup>
 
 </Project>

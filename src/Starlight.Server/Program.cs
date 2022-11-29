@@ -53,6 +53,6 @@ host.ConfigureServices((context, services) =>
 var app = host.Build();
 
 await app.Services.GetRequiredService<HookCaller>()
-    .AttachAsync();
+    .BindAsync();
 
 await app.RunAsync();

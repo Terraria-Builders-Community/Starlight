@@ -1,6 +1,4 @@
 ﻿using CSF;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Starlight
 {
@@ -22,7 +20,7 @@ namespace Starlight
             _provider = provider;
             _framework = framework;
 
-            _framework.Logger.Resolver = new LogResolver(x => 
+            _framework.Logger.Resolver = new LogResolver(x =>
                 _logger.Log((Microsoft.Extensions.Logging.LogLevel)x.LogLevel, x.Exception, "{}", x.Value));
         }
 

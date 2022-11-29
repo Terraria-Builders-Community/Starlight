@@ -15,5 +15,10 @@ namespace Starlight.Structures
         {
             return base.Equals(obj);
         }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }
