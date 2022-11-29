@@ -11,7 +11,7 @@ namespace Starlight
 
         public ItemVariant? ItemVariant { get; set; }
 
-        public OnSetItemDefaultArgs(Item item, ref int type, ItemVariant? itemVariant)
+        public OnSetItemDefaultArgs(Item item, int type, ItemVariant? itemVariant)
         {
             Item = item;
             Type = type;

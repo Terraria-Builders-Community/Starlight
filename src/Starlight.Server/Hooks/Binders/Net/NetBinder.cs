@@ -23,6 +23,10 @@ namespace Starlight
             Hooks.NetMessage.SendBytes += OnSendBytes;
             Hooks.MessageBuffer.GetData += OnReceiveData;
             Hooks.MessageBuffer.NameCollision += OnNameCollision;
+
+            On.Terraria.Main.startDedInput += Main_startDedInput;
+            On.Terraria.RemoteClient.Reset += RemoteClient_Reset;
+            Hooks.Main.CommandProcess += OnProcess;
         }
 
         private static void OnBroadcastChatMessage(On.Terraria.Chat.ChatHelper.orig_BroadcastChatMessage orig, NetworkText text, Color color, int excludedPlayer)
@@ -49,19 +53,7 @@ namespace Starlight
             if (e.Event is not HookEvent.Before)
                 return;
 
-            var msgType = e.MsgType;
-            var remoteClient = e.RemoteClient;
-            var ignoreClient = e.IgnoreClient;
-            var text = e.Text;
-            var number = e.Number;
-            var number2 = e.Number2;
-            var number3 = e.Number3;
-            var number4 = e.Number4;
-            var number5 = e.Number5;
-            var number6 = e.Number6;
-            var number7 = e.Number7;
-
-            var args = new OnSendDataArgs();
+            var args = new OnSendDataArgs((PacketType)e.MsgType, e.RemoteClient, e.IgnoreClient, e.Text, e.Number, e.Number2, e.Number3, e.Number4, e.Number5, e.Number6, e.Number7);
 
             var result = _caller.OnSendDataAsync(args)
                 .GetAwaiter().GetResult();
@@ -69,22 +61,23 @@ namespace Starlight
             if (result.Handled)
                 e.Result = HookResult.Cancel;
 
-            e.MsgType = msgType;
-            e.RemoteClient = remoteClient;
-            e.IgnoreClient = ignoreClient;
-            e.Text = text;
-            e.Number = number;
-            e.Number2 = number2;
-            e.Number3 = number3;
-            e.Number4 = number4;
-            e.Number5 = number5;
-            e.Number6 = number6;
-            e.Number7 = number7;
+            e.MsgType = (int)args.PacketType;
+            e.RemoteClient = args.RemoteClient;
+            e.IgnoreClient = args.IgnoreClient;
+
+            e.Text = args.Text;
+            e.Number = args.Number;
+            e.Number2 = args.Number2;
+            e.Number3 = args.Number3;
+            e.Number4 = args.Number4;
+            e.Number5 = args.Number5;
+            e.Number6 = args.Number6;
+            e.Number7 = args.Number7;
         }
 
         private static void OnSendNetData(On.Terraria.Net.NetManager.orig_SendData orig, NetManager netmanager, Terraria.Net.Sockets.ISocket socket, NetPacket packet)
         {
-            var args = new OnSendNetDataArgs();
+            var args = new OnSendNetDataArgs(netmanager, socket, packet);
 
             var result = _caller.OnSendNetDataAsync(args)
                 .GetAwaiter().GetResult();
@@ -129,7 +122,7 @@ namespace Starlight
 
         private static void OnSendBytes(object? sender, Hooks.NetMessage.SendBytesEventArgs e)
         {
-            var args = new OnSendBytesArgs();
+            var args = new OnSendBytesArgs(Netplay.Clients[e.RemoteClient], e.Data, e.Offset, e.Size);
 
             var result = _caller.OnSendBytesAsync(args)
                 .GetAwaiter().GetResult();
@@ -157,7 +150,7 @@ namespace Starlight
                 Netplay.Clients[slot].Reset();
                 Netplay.Clients[slot].Socket = client;
             }
-            if (FindNextOpenClientSlot() == -1)
+            if (FindNextOpenClientSlot() is -1)
                 Netplay.StopListening();
         }
 
@@ -170,6 +163,46 @@ namespace Starlight
                         return i;
             }
             return -1;
+        }
+
+        static void Main_startDedInput(On.Terraria.Main.orig_startDedInput orig)
+        {
+            if (Environment.GetCommandLineArgs().Any(x => x.Equals("-disable-commands")))
+            {
+                _caller.Logger.LogError("The command thread has been disabled.");
+                return;
+            }
+
+            orig();
+        }
+
+        static void OnProcess(object? sender, Hooks.Main.CommandProcessEventArgs e)
+        {
+            var args = new OnCommandProcessArgs();
+
+            var result = _caller.OnServerCommandAsync(args)
+                .GetAwaiter().GetResult();
+
+            if (result.Handled)
+                e.Result = HookResult.Cancel;
+        }
+
+        static void RemoteClient_Reset(On.Terraria.RemoteClient.orig_Reset orig, RemoteClient client)
+        {
+            if (!Netplay.Disconnect)
+            {
+                if (client.IsActive)
+                {
+                    var args = new OnLeavePlayerArgs(client.Id);
+                    _ = _caller.OnLeavePlayerAsync(args);
+                }
+
+                var socketargs = new OnSocketResetArgs(client);
+
+                _ = _caller.OnSocketResetAsync(socketargs);
+            }
+
+            orig(client);
         }
     }
 }

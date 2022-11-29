@@ -26,6 +26,9 @@
         public virtual Task<HandleResult> OnNPCDropLootAsync(OnNPCLootDropArgs args)
             => Continue();
 
+        public virtual Task<HandleResult> OnBossBagItemAsync(OnBossBagDropArgs args)
+            => Continue();
+
         public virtual Task<HandleResult> OnTransformAsync(OnTransformArgs args)
             => Continue();
     }

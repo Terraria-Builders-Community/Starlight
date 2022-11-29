@@ -11,14 +11,7 @@ namespace Starlight
         public OnNPCSpawnArgs(int index, int type)
         {
             NPCId = index;
-            int Type = type;
+            Type = type;
         }
-
-        //may be a nice-to-have, idfk up to u rozen to keep or nah
-        public string RetrieveTypeName()
-        {
-            return NPC.GetFirstNPCNameOrNull(Type);
-        }
-
     }
 }

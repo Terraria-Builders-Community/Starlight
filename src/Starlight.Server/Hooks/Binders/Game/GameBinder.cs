@@ -24,7 +24,6 @@ namespace Starlight
 
         private static void OnUpdate(On.Terraria.Main.orig_Update orig, Terraria.Main instance, GameTime gameTime)
         {
-
             _ = _caller.OnGameUpdateAsync();
 
             orig(instance, gameTime);
@@ -63,7 +62,7 @@ namespace Starlight
             orig();
         }
 
-        private static void OnItemMechSpawn(object? sender, Item.MechSpawnEventArgs e)
+        private static void OnItemMechSpawn(object? sender, Hooks.Item.MechSpawnEventArgs e)
         {
             var args = new OnStatueSpawnArgs();
 

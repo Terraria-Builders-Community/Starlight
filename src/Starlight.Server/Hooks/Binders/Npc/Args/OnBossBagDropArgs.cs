@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Starlight
 {
-    public class OnNPCLootDropArgs
+    public sealed class OnBossBagDropArgs
     {
-        public IEntitySource Source { get; set; }
-
         public Vector2 Position { get; set; }
 
         public int Width { get; set; }
@@ -29,9 +31,8 @@ namespace Starlight
 
         public bool ReverseLookup { get; set; }
 
-        public OnNPCLootDropArgs(IEntitySource source, Vector2 position, int width, int height, int stack, int itemId, bool broadcast, int prefix, int npcId, int npcArrayIndex, bool noGrabDelay, bool reverseLookup)
+        public OnBossBagDropArgs(Vector2 position, int width, int height, int stack, int itemId, bool broadcast, int prefix, int npcId, int npcArrayIndex, bool noGrabDelay, bool reverseLookup)
         {
-            Source = source;
             Position = position;
             Width = width;
             Height = height;

@@ -39,56 +39,61 @@ namespace Starlight
         {
             if (e.Event is HookEvent.Before)
             {
-                var args = new OnNPCLootDropArgs
-                {
-                    Position = new Microsoft.Xna.Framework.Vector2(e.X, e.Y),
-                    Width = e.Width,
-                    Height = e.Height,
-                    ItemId = e.ItemIndex,
-                    Stack = e.Stack,
-                    Broadcast = e.NoBroadcast,
-                    Prefix = e.Pfix,
-                    NpcId = e.Npc.type,
-                    NpcArrayIndex = e.Npc.netID,
-                    NoGrabDelay = e.NoGrabDelay,
-                    ReverseLookup = e.ReverseLookup
-                };
+                var args = new OnNPCLootDropArgs(null!, new(e.X, e.Y), e.Width, e.Height, e.Stack, e.Type, e.NoBroadcast, e.Pfix, e.Npc.type, e.Npc.netID, e.NoGrabDelay, e.ReverseLookup);
 
-                var result = _caller.OnNPCDropLootEventAsync(args)
+                var result = _caller.OnNPCDropLootAsync(args)
                     .GetAwaiter().GetResult();
 
                 if (result.Handled)
                     e.Result = HookResult.Cancel;
 
-                e.Width = args.Width;
-                e.Height = args.Height;
                 e.X = (int)args.Position.X;
                 e.Y = (int)args.Position.Y;
-                e.ItemIndex = args.ItemId;
-                e.Stack = args.Stack;
-                e.Pfix = args.Prefix;
-                e.Npc.type = args.NpcId;
 
+                e.Width = args.Width;
+                e.Height = args.Height;
+                e.Type = args.ItemId;
+                e.Stack = args.Stack;
+                e.NoBroadcast = args.Broadcast;
+                e.Pfix = args.Prefix;
+                e.NoGrabDelay = args.NoGrabDelay;
+                e.ReverseLookup = args.ReverseLookup;
             }
         }
         private static void OnBossBagItem(object? sender, Hooks.NPC.BossBagEventArgs e)
         {
-            throw new NotImplementedException();
+            var args = new OnBossBagDropArgs(new(e.X, e.Y), e.Width, e.Height, e.Stack, e.Type, e.NoBroadcast, e.Pfix, e.Npc.type, e.Npc.netID, e.NoGrabDelay, e.ReverseLookup);
+
+            var result = _caller.OnBossBagItemAsync(args)
+                .GetAwaiter().GetResult();
+
+            if (result.Handled)
+                e.Result = HookResult.Cancel;
+
+            e.X = (int)args.Position.X;
+            e.Y = (int)args.Position.Y;
+
+            e.Width = args.Width;
+            e.Height = args.Height;
+            e.Type = args.ItemId;
+            e.Stack = args.Stack;
+            e.NoBroadcast = args.Broadcast;
+            e.Pfix = args.Prefix;
+            e.NoGrabDelay = args.NoGrabDelay;
+            e.ReverseLookup = args.ReverseLookup;
         }
-        // ^^^^^^^^^^^
 
         private static void OnSpawn(object? sender, Hooks.NPC.SpawnEventArgs e)
         {
-            var index = e.Index;
-            var type = Main.npc[index].type;
-
-            var args = new OnNPCSpawnArgs(index, type);
+            var args = new OnNPCSpawnArgs(e.Index, Main.npc[e.Index].type);
 
             var result = _caller.OnNPCSpawnEventAsync(args)
                 .GetAwaiter().GetResult();
 
             if (result.Handled)
                 e.Result = HookResult.Cancel;
+
+            e.Index = args.Type;
         }
 
         private static void OnNPCAIUpdate(On.Terraria.NPC.orig_AI orig, NPC self)
@@ -143,6 +148,8 @@ namespace Starlight
             if (result.Handled)
                 return;
 
+            type = args.Type;
+
             orig(npc, type, spawnparams);
         }
 
@@ -155,6 +162,8 @@ namespace Starlight
 
             if (result.Handled)
                 return;
+
+            id = args.Type;
 
             orig(npc, id, spawnparams);
         }

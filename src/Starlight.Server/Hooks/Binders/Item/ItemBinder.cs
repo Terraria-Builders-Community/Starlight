@@ -19,7 +19,7 @@ namespace Starlight
 
         private static void OnNetDefaults(On.Terraria.Item.orig_netDefaults orig, Item item, int type)
         {
-            var args = new OnSetItemDefaultArgs(item, ref type, null);
+            var args = new OnSetItemDefaultArgs(item, type, null);
 
             var result = _caller.OnNetDefaultsAsync(args)
                 .GetAwaiter().GetResult();
@@ -27,18 +27,22 @@ namespace Starlight
             if (result.Handled)
                 return;
 
+            type = args.Type;
+
             orig(item, type);
         }
 
         private static void OnSetDefaults(On.Terraria.Item.orig_SetDefaults_int_bool_ItemVariant orig, Item item, int type, bool noMatCheck, ItemVariant? variant = null)
         {
-            var args = new OnSetItemDefaultArgs(item, ref type, variant);
+            var args = new OnSetItemDefaultArgs(item, type, variant);
 
             var result = _caller.OnSetDefaultsAsync(args)
                 .GetAwaiter().GetResult();
 
             if (result.Handled)
                 return;
+
+            type = args.Type;
 
             orig(item, type, noMatCheck, variant);
         }

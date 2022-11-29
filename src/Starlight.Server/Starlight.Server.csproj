@@ -9,6 +9,8 @@
 	<PublishSingleFile>true</PublishSingleFile>
 	<SelfContained>true</SelfContained>
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+	<NoWarn>MSB3270</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

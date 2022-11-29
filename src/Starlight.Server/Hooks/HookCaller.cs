@@ -82,7 +82,6 @@ namespace Starlight
 
             NetBinder.Bind(this);
             GameBinder.Bind(this);
-            ServerBinder.Bind(this);
 
             await Task.CompletedTask;
         }
@@ -474,11 +473,59 @@ namespace Starlight
             return HandleResult.Continue();
         }
 
-        public async Task<HandleResult> OnNPCDropLootEventAsync(OnNPCLootDropArgs args)
+        public async Task<HandleResult> OnNPCDropLootAsync(OnNPCLootDropArgs args)
         {
             foreach (var resolver in _npcResolvers)
             {
                 var handle = await resolver.OnNPCDropLootAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnBossBagItemAsync(OnBossBagDropArgs args)
+        {
+            foreach (var resolver in _npcResolvers)
+            {
+                var handle = await resolver.OnBossBagItemAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnServerCommandAsync(OnCommandProcessArgs args)
+        {
+            foreach (var resolver in _chatResolvers)
+            {
+                var handle = await resolver.OnServerCommandAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnLeavePlayerAsync(OnLeavePlayerArgs args)
+        {
+            foreach (var resolver in _playerResolvers)
+            {
+                var handle = await resolver.OnLeavePlayerAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnSocketResetAsync(OnSocketResetArgs args)
+        {
+            foreach (var resolver in _netResolvers)
+            {
+                var handle = await resolver.OnSocketResetAsync(args);
 
                 if (handle.Handled)
                     return handle;

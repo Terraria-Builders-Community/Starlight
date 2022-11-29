@@ -1,10 +1,10 @@
 ﻿using Terraria;
 
-namespace Starlight.Hooks.Binders
+namespace Starlight
 {
     public abstract class PlayerEvent
     {
-        public abstract int PlayerIndex { get; }
+        public abstract int PlayerIndex { get; set; }
 
         public virtual Player GetPlayer()
         {
