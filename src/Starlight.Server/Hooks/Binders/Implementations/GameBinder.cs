@@ -29,18 +29,19 @@ namespace Starlight
 
         private static void OnUpdate(On.Terraria.Main.orig_Update orig, Terraria.Main instance, GameTime gameTime)
         {
-            _ = _caller.InvokeGameUpdateAsync();
+
+             _ = _caller.OnGameUpdateAsync();
 
             orig(instance, gameTime);
 
-            _ = _caller.InvokeGamePostUpdateAsync();
+            _ = _caller.OnPostGameUpdateAsync();
         }
 
         private static void OnHardmodeTileUpdate(object? sender, Hooks.WorldGen.HardmodeTileUpdateEventArgs e)
         {
             var args = new OnHardmodeTileUpdateArgs();
 
-            var result = _caller.OnHardmodeTileUpdateAsync(args);
+            var result = _caller.OnHardmodeTileUpdateAsync(args).GetAwaiter().GetResult();
 
             if (result.Handled)
                 e.Result = HookResult.Cancel;
@@ -50,7 +51,7 @@ namespace Starlight
         {
             var args = new OnHardmodeTilePlaceArgs();
 
-            var result = _caller.OnHardmodeTilePlaceAsync(args);
+            var result = _caller.OnHardmodeTilePlaceAsync(args).GetAwaiter().GetResult();
 
             if (result.Handled)
                 e.Result = HardmodeTileUpdateResult.Cancel;
@@ -71,7 +72,7 @@ namespace Starlight
         {
             var args = new OnStatueSpawnArgs();
 
-            var result = _caller.OnStatueSpawnAsync(args);
+            var result = _caller.OnStatueSpawnAsync(args).GetAwaiter().GetResult();
 
             if (result.Handled)
                 e.Result = HookResult.Cancel;
@@ -81,7 +82,7 @@ namespace Starlight
         {
             var args = new OnStatueSpawnArgs();
 
-            var result = _caller.OnStatueSpawnAsync(args);
+            var result = _caller.OnStatueSpawnAsync(args).GetAwaiter().GetResult();
 
             if (result.Handled)
                 e.Result = HookResult.Cancel;

@@ -25,11 +25,12 @@ namespace Starlight
                 => await OnCommandResultAsync((ChatCommandContext)x, y);
 
             ItemBinder.Bind(this);
+            NetBinder.Bind(this);
 
             await Task.CompletedTask;
         }
-
-        public async Task<HandleResult> OnNetDefaultsAsync(OnSetDefaultArgs args)
+        //item net default
+        public async Task<HandleResult> OnNetDefaultsAsync(OnSetItemDefaultArgs args)
         {
             foreach (var resolver in _resolvers)
             {
@@ -41,7 +42,21 @@ namespace Starlight
             return HandleResult.Continue();
         }
 
-        public async Task<HandleResult> OnSetDefaultsAsync(OnSetDefaultArgs args)
+        //npc net default
+        public async Task<HandleResult> OnSetNetDefaultsAsync(OnSetNPCDefaultArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnNetDefaultsAsync(args);
+
+                if (handle.Handled)
+                    return HandleResult.Break();
+            }
+            return HandleResult.Continue();
+        }
+
+        //ITEM SET DEFAULT
+        public async Task<HandleResult> OnSetDefaultsAsync(OnSetItemDefaultArgs args)
         {
             foreach (var resolver in _resolvers)
             {
@@ -53,6 +68,21 @@ namespace Starlight
             return HandleResult.Continue();
         }
 
+        //NPC SET DEFAULT
+        public async Task<HandleResult> OnSetDefaultsAsync(OnSetNPCDefaultArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnSetDefaultsAsync(args);
+
+                if (handle.Handled)
+                    return HandleResult.Break();
+            }
+            return HandleResult.Continue();
+        }
+
+     
+
         public async Task<HandleResult> OnQuickStachAsync(OnQuickStackArgs args)
         {
             foreach (var resolver in _resolvers)
@@ -63,6 +93,83 @@ namespace Starlight
                     return HandleResult.Break();
             }
             return HandleResult.Continue();
+        }
+
+
+        private bool currentGameMenuState;
+        public async Task OnGameUpdateAsync()
+        {
+            if(currentGameMenuState != Terraria.Main.gameMenu)
+            {
+                currentGameMenuState = Terraria.Main.gameMenu;
+
+                if (Terraria.Main.gameMenu)
+                    await OnGameWorldDisconnect();
+                else
+                    await OnGameWorldConnect();
+                            
+            }
+
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnGameUpdateAsync();
+
+                if (handle.Handled)
+                    break;
+            }
+
+            return;
+
+        }
+
+
+        public async Task OnPostGameUpdateAsync()
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnPostGameUpdateAsync();
+
+                if (handle.Handled)
+                    break;
+            }
+
+            return;
+        }
+
+        public async Task OnPostInitializeAsync()
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnPostInitializeAsync();
+
+                if (handle.Handled)
+                    break;
+            }
+            return;
+        }
+
+
+        public async Task<HandleResult> OnStatueSpawnAsync(OnStatueSpawnArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnStatueSpawnAsync();
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        //WILL DO (LATER :>)
+        public async Task OnGameWorldConnect()
+        {
+            return;
+        }
+
+        public async Task OnGameWorldDisconnect()
+        {
+            return;
         }
 
         public async Task<HandleResult> OnChatAsync(OnChatArgs args)
@@ -199,5 +306,104 @@ namespace Starlight
             }
             return HandleResult.Continue();
         }
+
+        public async Task<HandleResult> OnHardmodeTileUpdateAsync(OnHardmodeTileUpdateArgs args)
+        {
+            foreach(var resolver in _resolvers)
+            {
+                var handle = await resolver.OnHardmodeTileUpdateAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnHardmodeTilePlaceAsync(OnHardmodeTilePlaceArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnHardmodeTilePlaceAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnStrikeAsync(OnStrikeEventArgs args)
+        {
+
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnStrikeAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnNPCAIUpdateAsync(OnNPCAIUpdateArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnNPCAIUpdateAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnNPCSpawnEventAsync(OnNPCSpawnEventArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnNPCSpawnEventAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnNPCKilledEventAsync(NPCKilledEventArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnNPCKilledEventAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnTransformAsync(OnTransformArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnTransformAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnNPCDropLootEventAsync(NPCLootDropEventArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnNPCDropLootEventAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+       
     }
 }

@@ -8,7 +8,7 @@ using Terraria;
 
 namespace Starlight
 {
-    public sealed class OnSetDefaultArgs
+    public sealed class OnSetItemDefaultArgs
     {
         public Item Item { get; internal set; }
 
@@ -16,7 +16,7 @@ namespace Starlight
 
         public ItemVariant? ItemVariant { get; set; }
 
-        public OnSetDefaultArgs(Item item, ref int type, ItemVariant? itemVariant)
+        public OnSetItemDefaultArgs(Item item, ref int type, ItemVariant? itemVariant)
         {
             Item = item;
             Type = type;
