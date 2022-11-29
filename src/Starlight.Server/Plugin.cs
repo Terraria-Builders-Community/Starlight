@@ -1,5 +1,4 @@
 ﻿using CSF;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Starlight
 {

@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IL.Microsoft.Xna.Framework;
-using IL.Terraria.GameContent.ObjectInteractions;
-using IL.Terraria.ID;
-using OTAPI;
+﻿using OTAPI;
 using Terraria;
-using Terraria.GameContent.Items;
 
 
 namespace Starlight

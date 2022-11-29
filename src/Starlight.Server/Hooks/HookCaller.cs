@@ -21,9 +21,9 @@ namespace Starlight
         public ILogger<HookCaller> Logger { get; }
 
         public HookCaller(
-            IEnumerable<IResolver> resolvers, 
-            CommandFramework framework, 
-            IServiceProvider provider, 
+            IEnumerable<IResolver> resolvers,
+            CommandFramework framework,
+            IServiceProvider provider,
             ILogger<HookCaller> logger)
         {
             _framework = framework;
@@ -167,7 +167,7 @@ namespace Starlight
         private bool _currentGameMenuState;
         public async Task OnGameUpdateAsync()
         {
-            if(_currentGameMenuState != Terraria.Main.gameMenu)
+            if (_currentGameMenuState != Terraria.Main.gameMenu)
             {
                 _currentGameMenuState = Terraria.Main.gameMenu;
 
@@ -175,7 +175,7 @@ namespace Starlight
                     await OnGameWorldDisconnectAsync();
                 else
                     await OnGameWorldConnectAsync();
-                            
+
             }
 
             foreach (var resolver in _gameResolvers)
@@ -392,7 +392,7 @@ namespace Starlight
 
         public async Task<HandleResult> OnHardmodeTileUpdateAsync(OnHardmodeTileUpdateArgs args)
         {
-            foreach(var resolver in _worldResolvers)
+            foreach (var resolver in _worldResolvers)
             {
                 var handle = await resolver.OnHardmodeTileUpdateAsync(args);
 

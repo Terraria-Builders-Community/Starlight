@@ -1,6 +1,4 @@
-﻿using Starlight.Hooks.Core.Args;
-
-namespace Starlight
+﻿namespace Starlight
 {
     public class ChatResolver : HookResolver
     {
