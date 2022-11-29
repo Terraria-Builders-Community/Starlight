@@ -1,5 +1,4 @@
 ﻿using CSF;
-using Terraria;
 
 namespace Starlight
 {
@@ -30,8 +29,8 @@ namespace Starlight
 
             await Task.CompletedTask;
         }
-
-        public async Task<HandleResult> OnNetDefaultsAsync(OnSetDefaultArgs args)
+        //item net default
+        public async Task<HandleResult> OnNetDefaultsAsync(OnSetItemDefaultArgs args)
         {
             foreach (var resolver in _resolvers)
             {
@@ -43,7 +42,21 @@ namespace Starlight
             return HandleResult.Continue();
         }
 
-        public async Task<HandleResult> OnSetDefaultsAsync(OnSetDefaultArgs args)
+        //npc net default
+        public async Task<HandleResult> OnSetNetDefaultsAsync(OnSetNPCDefaultArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnNetDefaultsAsync(args);
+
+                if (handle.Handled)
+                    return HandleResult.Break();
+            }
+            return HandleResult.Continue();
+        }
+
+        //ITEM SET DEFAULT
+        public async Task<HandleResult> OnSetDefaultsAsync(OnSetItemDefaultArgs args)
         {
             foreach (var resolver in _resolvers)
             {
@@ -54,6 +67,21 @@ namespace Starlight
             }
             return HandleResult.Continue();
         }
+
+        //NPC SET DEFAULT
+        public async Task<HandleResult> OnSetDefaultsAsync(OnSetNPCDefaultArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnSetDefaultsAsync(args);
+
+                if (handle.Handled)
+                    return HandleResult.Break();
+            }
+            return HandleResult.Continue();
+        }
+
+     
 
         public async Task<HandleResult> OnQuickStachAsync(OnQuickStackArgs args)
         {
@@ -303,5 +331,79 @@ namespace Starlight
             return HandleResult.Continue();
         }
 
+        public async Task<HandleResult> OnStrikeAsync(OnStrikeEventArgs args)
+        {
+
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnStrikeAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnNPCAIUpdateAsync(OnNPCAIUpdateArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnNPCAIUpdateAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnNPCSpawnEventAsync(OnNPCSpawnEventArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnNPCSpawnEventAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnNPCKilledEventAsync(NPCKilledEventArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnNPCKilledEventAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnTransformAsync(OnTransformArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnTransformAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+        public async Task<HandleResult> OnNPCDropLootEventAsync(NPCLootDropEventArgs args)
+        {
+            foreach (var resolver in _resolvers)
+            {
+                var handle = await resolver.OnNPCDropLootEventAsync(args);
+
+                if (handle.Handled)
+                    return handle;
+            }
+            return HandleResult.Continue();
+        }
+
+       
     }
 }

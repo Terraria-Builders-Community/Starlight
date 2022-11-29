@@ -1,5 +1,6 @@
 ﻿using CSF;
 
+
 namespace Starlight
 {
     public abstract class HookResolver : IHookResolver
@@ -41,12 +42,26 @@ namespace Starlight
             return Continue();
         }
 
-        public virtual Task<HandleResult> OnSetDefaultsAsync(OnSetDefaultArgs args)
+        //setitem overload
+        public virtual Task<HandleResult> OnSetDefaultsAsync(OnSetItemDefaultArgs args)
         {
             return Continue();
         }
 
-        public virtual Task<HandleResult> OnNetDefaultsAsync(OnSetDefaultArgs args)
+        //setnpc overload
+        public virtual Task<HandleResult> OnSetDefaultsAsync(OnSetNPCDefaultArgs args)
+        {
+            return Continue();
+        }
+
+        //NET ITEM overload
+        public virtual Task<HandleResult> OnNetDefaultsAsync(OnSetItemDefaultArgs args)
+        {
+            return Continue();
+        }
+
+        //NET NPC overload
+        public virtual Task<HandleResult> OnNetDefaultsAsync(OnSetNPCDefaultArgs args)
         {
             return Continue();
         }
@@ -114,6 +129,32 @@ namespace Starlight
         {
             return Continue();
         }
+          public virtual Task<HandleResult> OnStrikeAsync(OnStrikeEventArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnTransformAsync(OnTransformArgs args)
+        {
+            return Continue();
+        }
+
+        public virtual Task<HandleResult> OnNPCAIUpdateAsync(OnNPCAIUpdateArgs args)
+        {
+            return Continue();
+        }
+        public virtual Task<HandleResult> OnNPCSpawnEventAsync(OnNPCSpawnEventArgs args)
+        {
+            return Continue();
+        }
+        public virtual Task<HandleResult> OnNPCDropLootEventAsync(NPCLootDropEventArgs args)
+        {
+            return Continue();
+        }
+        public virtual Task<HandleResult> OnNPCKilledEventAsync(NPCKilledEventArgs args)
+        {
+            return Continue();
+        }
 
         protected virtual Task<HandleResult> Continue()
             => Task.FromResult(HandleResult.Continue());
@@ -121,5 +162,6 @@ namespace Starlight
         protected virtual Task<HandleResult> Break()
             => Task.FromResult(HandleResult.Break());
 
+    
     }
 }
